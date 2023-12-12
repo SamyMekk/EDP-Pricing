@@ -28,24 +28,26 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st.header("Vous avez choisi de prendre  le " + str(df))
 
 
-if df=="Put Européen":
-    SpotPrice=st.sidebar.number_input("Choississez le spot",value= 100)
-    Strike=st.sidebar.number_input("Choississez le strike K",value= 100)
-    Maturité=st.sidebar.number_input("Choississez la maturité T",value= 1)
-    Volatilité=st.sidebar.number_input("Choississez σ",value= 0.1)
-    TauxSansRisque=st.sidebar.number_input("Choississez r",value= 0.02)
-    Schéma=st.selectbox("Choissisez le schéma de discrétisation : ",("EE","IE","CN"))
-    data={'''SpotPrice''': SpotPrice,
+SpotPrice=st.sidebar.number_input("Choississez le spot",value= 100)
+Strike=st.sidebar.number_input("Choississez le strike K",value= 100)
+Maturité=st.sidebar.number_input("Choississez la maturité T",value= 1)
+Volatilité=st.sidebar.number_input("Choississez σ",value= 0.1)
+TauxSansRisque=st.sidebar.number_input("Choississez r",value= 0.02)
+Schéma=st.selectbox("Choissisez le schéma de discrétisation : ",("EE","IE","CN"))
+data={'''SpotPrice''': SpotPrice,
          '''Strike''':Strike,
          '''Maturité''':Maturité,
          '''Volatilité''':Volatilité,
          '''Taux Sans Risque''':TauxSansRisque
          }
-    Parametres=pd.DataFrame(data,index=["Caractéristique de l'option"])
-    st.subheader("Voici les caractéristiques de l'option : ")
-    st.write(Parametres)   
+Parametres=pd.DataFrame(data,index=["Caractéristique de l'option"])
+st.subheader("Voici les caractéristiques de l'option : ")
+st.write(Parametres)   
     
-    Option1=OptionPricer(TauxSansRisque,Volatilité,Strike,Maturité)
+
+
+if df=="Put Européen":
+    Option1=PutPrice(TauxSansRisque,Volatilité,Strike,Maturité)
     N=st.number_input("Choissisez le nombre N",value=100)
     I=st.number_input("Choississez le nombre I",value=20)
     Smin=st.number_input("Choississez Smin",value=0)
@@ -57,6 +59,23 @@ if df=="Put Européen":
     
     st.pyplot(Option1.plot_u())
     st.write(Option1.BlackScholes(SpotPrice))
+    
+    
+if df=="Call Européen":
+    Option1=CallPrice(TauxSansRisque,Volatilité,Strike,Maturité)
+    N=st.number_input("Choissisez le nombre N",value=100)
+    I=st.number_input("Choississez le nombre I",value=20)
+    Smin=st.number_input("Choississez Smin",value=0)
+    Smax=st.number_input("Choississez Smax",value=200)
+    
+    Option1.Setting(Smin=Smin,Smax=Smax,N=N,I=I)
+    Option1.computeScheme(SCHEME=Schéma)
+    
+    
+    st.pyplot(Option1.plot_u())
+    st.write(Option1.BlackScholes(SpotPrice))
+    
+    
 
 
 

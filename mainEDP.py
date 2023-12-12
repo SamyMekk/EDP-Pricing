@@ -165,7 +165,7 @@ class CallPrice(OptionPricer):
         #print("Pricing par le schema ", self.SCHEME, " avec I= {} ,  N= {}".format(self.I, self.N))
         # Utilisation de self.I pour s'assurer que les indices sont valides
         plt.xlabel('Prix du sous-jacent (S)')
-        plt.ylabel('Prix du Put')
+        plt.ylabel('Prix du Call')
         plt.title("Pricing du Call Européen par le schema {} avec T ={}, I= {},  N= {}".format(self.SCHEME,self.T,self.I,self.N))
         plt.grid(True)
         plt.legend()

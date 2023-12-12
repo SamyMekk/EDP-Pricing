@@ -90,16 +90,7 @@ class OptionPricer():
                 self.U = lng.solve(np.identity(self.I) + theta * self.dt * self.A, self.dt * F + part1)
 
     def plot_u(self):
-        #print("Pricing par le schema ", self.SCHEME, " avec I= {} ,  N= {}".format(self.I, self.N))
-        # Utilisation de self.I pour s'assurer que les indices sont valides
-        plt.xlabel('Prix du sous-jacent (S)')
-        plt.ylabel('Prix du Put')
-        plt.title("Pricing du Put Européen par le schema {} avec T ={}, I= {},  N= {}".format(self.SCHEME,self.T,self.I,self.N))
-        plt.grid(True)
-        plt.legend()
-        plt.plot(self.S[:self.I], self.U[:self.I])
-        plt.plot(self.S[:self.I + 1], [self.u0(self.S[i]) for i in range(self.I + 1)])
-        plt.show()
+        pass
 
 
     def amplification(self):
@@ -139,9 +130,10 @@ class PutPrice(OptionPricer):
         plt.ylabel('Prix du Put')
         plt.title("Pricing du Put Européen par le schema {} avec T ={}, I= {},  N= {}".format(self.SCHEME,self.T,self.I,self.N))
         plt.grid(True)
+        plt.plot(self.S[:self.I], self.U[:self.I],label="{} Schema".format(self.SCHEME),c="blue")
+        plt.plot(self.S[:self.I + 1], [self.u0(self.S[i]) for i in range(self.I + 1)],label="Payoff",linestyle="--",c="black")
         plt.legend()
-        plt.plot(self.S[:self.I], self.U[:self.I])
-        plt.plot(self.S[:self.I + 1], [self.u0(self.S[i]) for i in range(self.I + 1)])
+
         plt.show()
     def BlackScholes(self, sbar):
         dplus = (np.log(sbar / self.K) + self.r + 0.5 * self.T * (self.sigma ** 2)) / (self.sigma * np.sqrt(self.T))
@@ -168,9 +160,9 @@ class CallPrice(OptionPricer):
         plt.ylabel('Prix du Call')
         plt.title("Pricing du Call Européen par le schema {} avec T ={}, I= {},  N= {}".format(self.SCHEME,self.T,self.I,self.N))
         plt.grid(True)
+        plt.plot(self.S[:self.I], self.U[:self.I],label="{} Schema ".format(self.SCHEME),c="blue")
+        plt.plot(self.S[:self.I + 1], [self.u0(self.S[i]) for i in range(self.I + 1)],label="Payoff",linestyle="--",color="black")
         plt.legend()
-        plt.plot(self.S[:self.I], self.U[:self.I])
-        plt.plot(self.S[:self.I + 1], [self.u0(self.S[i]) for i in range(self.I + 1)])
         plt.show()
 
     def BlackScholes(self, sbar):

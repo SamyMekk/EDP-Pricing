@@ -58,7 +58,7 @@ if df=="Put Européen":
     
     
     st.pyplot(Option1.plot_u())
-    st.write(Option1.BlackScholes(SpotPrice))
+    # st.write(Option1.BlackScholes(SpotPrice))
     
     
 if df=="Call Européen":
@@ -73,7 +73,7 @@ if df=="Call Européen":
     
     
     st.pyplot(Option1.plot_u())
-    st.write(Option1.BlackScholes(SpotPrice))
+    # st.write(Option1.BlackScholes(SpotPrice))
     
     
 
